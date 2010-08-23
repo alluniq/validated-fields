@@ -15,17 +15,12 @@ describe ValidatedFields::Helpers do
   it "should add 'validated' class if the 'class' option already has a value assigned" do
     @builder.text_field(:name, :class => 'foobar').should match(/class="foobar validated"/)
   end
-
-  it "should add 'required' and 'data-required-error-msg' to required text fields" do
-    input = @builder.text_field(:name)
-    input.should match(/required="required"/)
-    input.should match(/data-required-error-msg="Name is required"/)
-  end
   
-  it "should add 'pattern' and 'data-format-error-msg' to fields that require specific format" do
-    input = @builder.text_field(:email)
+  it "should not add any options if the :validate option is false" do
+    input = @builder.text_field(:name, :validate => false)
     
-    input.should match(/pattern="\/.+"/) # TODO: lame
-    input.should match(/data-format-error-msg="Email is required"/)
+    input.should_not match(/required="required"/)
+    input.should_not match(/data-required-error-msg="Name is required"/)
+    input.should_not match(/validate="false"/)
   end
 end

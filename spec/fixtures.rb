@@ -9,7 +9,9 @@ class User
       
   attr_accessor :name, :email, :age
   
-  validates :name,  :presence => {:message => 'Name is required'}, :length => {:minimum => 1, :maximum => 10}
+  validates :name,  :presence => {:message => 'Name is required'},
+                    :length   => {:minimum => 3, :maximum => 10, :message => 'Invalid length'}
+                    
   validates :email, :format   => {:message => "Email is required", :with   => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
   
   def model_name
