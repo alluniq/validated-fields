@@ -22,5 +22,36 @@ describe ValidatedFields::Helpers do
     input.should_not match(/required="required"/)
     input.should_not match(/data-required-error-msg="Name is required"/)
     input.should_not match(/validate="false"/)
+    input.should_not match(/class="validated"/)
+  end
+  
+  it "should add options if the :if Proc returns true" do
+    @user.name = "Joe"
+    input = @builder.text_field(:last_name)
+    
+    input.should match(/required="required"/)
+    input.should match(/class="validated"/)
+  end
+  
+  it "should not add any options if the :if Proc returns false" do
+    input = @builder.text_field(:last_name)
+    
+    input.should_not match(/required="required"/)
+    input.should_not match(/class="validated"/)
+  end
+  
+  it "should add options if the method assigned to :if returns true" do
+    @user.last_name = "Doe"
+    input = @builder.text_field(:maiden_name)
+    
+    input.should match(/required="required"/)
+    input.should match(/class="validated"/)
+  end
+  
+  it "should not add any options if the method assigned to :if returns false" do
+    input = @builder.text_field(:maiden_name)
+    
+    input.should_not match(/required="required"/)
+    input.should_not match(/class="validated"/)
   end
 end

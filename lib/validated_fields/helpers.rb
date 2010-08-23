@@ -6,6 +6,7 @@ module ValidatedFields
         include ValidatedFields::Validators::PresenceValidator
         include ValidatedFields::Validators::FormatValidator
         include ValidatedFields::Validators::LengthValidator
+        include ValidatedFields::Validators::NumericalityValidator
       end
     end
     
@@ -37,16 +38,26 @@ module ValidatedFields
           return options
         end
         
+        validations = 0
+        
         validators = validators_for(object_name, attribute)
         validators.each do |validator|
+          if validator.options[:if].present?
+            object = options[:object]
+            
+            next if validator.options[:if].is_a?(Proc)   && validator.options[:if].call(object) == false
+            next if validator.options[:if].is_a?(Symbol) && object.send(validator.options[:if]) == false
+          end
+          
           validator_name = validator.class.to_s.split("::").last
           
           if ValidatedFields::Validators.const_defined?(validator_name)
             options = eval("ValidatedFields::Validators::#{validator_name}").prepare_options(validator, options)
           end
+          validations += 1
         end
         
-        options[:class] = options[:class].present? ? options[:class] + " validated" : "validated"
+        options[:class] = options[:class].present? ? options[:class] + " validated" : "validated" if validations > 0
         options
       end
       

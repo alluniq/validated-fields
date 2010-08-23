@@ -1,7 +1,5 @@
 # ValidatedFields
 
-**This plugin is at an early stage of development. Don't use it yet. Examples below are mostly just a proof of concept.**
-
 ValidatedFields is a set of helpers for unobtrusive frontend validations using HTML5 attributes, Rails 3 validators and JavaScript.
 
 It overrides the default rails form helpers and uses Validator reflection to gather validation rules declared in model classes.
@@ -18,7 +16,7 @@ Here's a basic example, just to give you an idea what the plugin does:
       <%= f.text_field :name %>
     <% end %>
     
-The text field would looke like this:
+The text field would look like this:
 
     <input class="validated" data-required-error-msg="Name is required" id="user_name" name="user[name]" required="required" type="text" />
     
@@ -32,7 +30,7 @@ Once we have those custom attributes, we can easily validate the field using Jav
 
 ### Installation
 
-Add the following line to your Gemfile:
+Add the following line to your Gemfile and run `bundle install`:
 
     gem 'validated_fields', :git => 'http://github.com/pch/validated-fields.git'
 
@@ -43,6 +41,7 @@ By default validated_field supports the following built-in validators:
 * presence
 * format
 * length
+* numericality
 
 ### Custom validator classes 
 
