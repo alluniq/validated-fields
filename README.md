@@ -93,6 +93,8 @@ In order to disable frontend validation for a given field, add :validate => fals
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-### Credits
+### Copyright
 
-- Piotr Chmolowski (<http://github.com/pch>)
+* Piotr Chmolowski
+* Peder Linder
+* Kim Moumen
