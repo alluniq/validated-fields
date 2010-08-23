@@ -46,7 +46,7 @@ By default validated_field supports the following built-in validators:
 
 ### Custom validator classes 
 
-If you'd like use your own validators, you'll need to override the `setup_validation_options` method:
+If you'd like use your own validators, you'll need to create a module with `prepare_options` method:
 
     class EmailValidator < ActiveModel::EachValidator
       EMAIL_REGEX = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
@@ -60,21 +60,16 @@ If you'd like use your own validators, you'll need to override the `setup_valida
       validates :email, :email => true
     end
     
-    module UsersHelper
-      protected
-        def setup_validation_options(object_name, attribute, options)
-          options = super(object_name, attribute, options)
-          options = check_email(object_name, attribute, options)
-          options
+    module ValidatedField
+      module Validators
+        module EmailValidator
+          def setup_validation_options(validator, options)
+            options[:pattern] = EmailValidator.EMAIL_REGEX.inspect
+            options["data-email-error-msg"] = validator.options[:message] if validator.options[:message].present?
+            options
+          end
         end
-        
-        def check_email(object_name, attribute, options)
-          validator = find_validator(object_name, attribute, ActiveModel::Validations::PresenceValidator)
-
-          options[:pattern] = EmailValidator.EMAIL_REGEX.inspect
-          options["data-email-error-msg"] = validator.options[:message] if validator.options[:message].present?
-          options
-        end
+      end
     end
 
 ### Disabling validation
