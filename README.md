@@ -62,7 +62,7 @@ If you'd like use your own validators, you'll need to create a module with `prep
     module ValidatedField
       module Validators
         module EmailValidator
-          def setup_validation_options(validator, options)
+          def self.prepare_options(validator, options)
             options[:pattern] = EmailValidator.EMAIL_REGEX.inspect
             options["data-email-error-msg"] = validator.options[:message] if validator.options[:message].present?
             options
