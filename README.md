@@ -13,7 +13,7 @@ Here's a basic example, just to give you an idea what the plugin does:
     end
     
     <%= form_for @user do |f| %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, :validate => true %>
     <% end %>
     
 The text field would look like this:
@@ -70,12 +70,6 @@ If you'd like use your own validators, you'll need to create a module with `prep
         end
       end
     end
-
-### Disabling validation
-
-In order to disable frontend validation for a given field, add :validate => false option:
-
-    <%= f.text_field :name, :validate => false %>
 
 ## Note on Patches/Pull Requests
  

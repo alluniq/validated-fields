@@ -9,7 +9,7 @@ describe ValidatedFields::Validators::NumericalityValidator do
   end
   
   it "should add min, max and data-numericality-error-msg attrs" do
-    input = @builder.text_field(:age)
+    input = @builder.text_field(:age, :validate => true)
     
     input.should match(/min="1"/)
     input.should match(/max="9"/)

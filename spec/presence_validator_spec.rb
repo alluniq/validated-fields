@@ -9,7 +9,7 @@ describe ValidatedFields::Validators::PresenceValidator do
   end
   
   it "should add 'required' and 'data-required-error-msg' to required text fields" do
-    input = @builder.text_field(:name)
+    input = @builder.text_field(:name, :validate => true)
     
     input.should match(/required="required"/)
     input.should match(/data-required-error-msg="Name is required"/)

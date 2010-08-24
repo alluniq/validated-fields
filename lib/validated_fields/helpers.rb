@@ -33,7 +33,7 @@ module ValidatedFields
     protected
       # Override this method if you want to use some non-standard validators. See README for examples
       def setup_validation_options(object_name, attribute, options)
-        if !options[:validate].nil? && options[:validate] == false
+        if options[:validate].nil? || options[:validate] != true
           options.delete(:validate)
           return options
         end
