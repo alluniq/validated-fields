@@ -1,4 +1,4 @@
-#module ValidatedFields
+module ValidatedFields
   class JavascriptGenerator < Rails::Generators::Base
     desc "This generator copies the validated-fields.js file to the public/javascripts directory in your application."
     
@@ -9,4 +9,4 @@
       copy_file('validated-fields.js', 'public/javascripts/validated-fields.js')
     end
   end
-#end
+end
