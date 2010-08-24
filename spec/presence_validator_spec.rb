@@ -13,5 +13,6 @@ describe ValidatedFields::Validators::PresenceValidator do
     
     input.should match(/required="required"/)
     input.should match(/data-required-error-msg="Name is required"/)
+    input.should_not match(/validated="true"/)
   end
 end
