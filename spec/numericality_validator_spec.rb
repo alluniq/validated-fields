@@ -13,6 +13,6 @@ describe ValidatedFields::Validators::NumericalityValidator do
     
     input.should match(/min="1"/)
     input.should match(/max="9"/)
-    input.should match(/data-numericality-error-msg="Wrong number format"/)
+    input.should match(/data-error-numericality="Wrong number format"/)
   end
 end

@@ -24,7 +24,7 @@ Once we have those custom attributes, we can easily validate the field using Jav
 
     $('.validated').blur(function() {
         if ($(this).attr('required') && $(this).attr('value') == '') {
-            alert($(this).attr('data-required-error-msg')); // alerts are evil, don't use them in your code ;)
+            alert($(this).attr('data-error-required')); // alerts are evil, don't use them in your code ;)
         }
     });
 
@@ -64,7 +64,7 @@ If you'd like use your own validators, you'll need to create a module with `prep
         module EmailValidator
           def self.prepare_options(validator, options)
             options[:pattern] = EmailValidator.EMAIL_REGEX.inspect
-            options["data-email-error-msg"] = validator.options[:message] if validator.options[:message].present?
+            options["data-error-email"] = validator.options[:message] if validator.options[:message].present?
             options
           end
         end

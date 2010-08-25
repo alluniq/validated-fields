@@ -12,6 +12,6 @@ describe ValidatedFields::Validators::FormatValidator do
     input = @builder.text_field(:email, :validate => true)
     
     input.should match(/pattern="\/.+"/) # TODO: lame
-    input.should match(/data-format-error-msg="Email is required"/)
+    input.should match(/data-error-format="Email is required"/)
   end
 end

@@ -12,7 +12,7 @@ describe ValidatedFields::Validators::PresenceValidator do
     input = @builder.text_field(:name, :validate => true)
     
     input.should match(/required="required"/)
-    input.should match(/data-required-error-msg="Name is required"/)
+    input.should match(/data-error-presence="Name is required"/)
     input.should_not match(/validated="true"/)
   end
 end

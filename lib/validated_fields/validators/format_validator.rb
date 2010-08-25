@@ -9,10 +9,10 @@ module ValidatedFields
         # TODO: tidy up regexes for javascript compatibility
         options[:pattern] = validator.options[:with].inspect
 
-        options["data-allow-blank"] = true if validator.options[:allow_nil].present?   && validator.options[:allow_nil]   == true
-        options["data-allow-blank"] = true if validator.options[:allow_blank].present? && validator.options[:allow_blank] == true
+        options["data-allow-blank"]  = true if validator.options[:allow_nil].present?   && validator.options[:allow_nil]   == true
+        options["data-allow-blank"]  = true if validator.options[:allow_blank].present? && validator.options[:allow_blank] == true
 
-        options["data-format-error-msg"] = validator.options[:message] if validator.options[:message].present?
+        options["data-error-format"] = validator.options[:message] if validator.options[:message].present?
         options
       end
     end
