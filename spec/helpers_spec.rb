@@ -56,7 +56,15 @@ describe ValidatedFields::Helpers do
   end
   
   it "should add data-validates with validator names" do
-    input = @builder.text_field(:name, :validate => true)
-    input.should match(/dupa/)
+    input1 = @builder.text_field(:name,  :validate => true)
+    input2 = @builder.text_field(:email, :validate => true)
+    
+    input1.should match(/data-validates="presence length"/)
+    input2.should match(/data-validates="format"/)
+  end
+  
+  it "should not add data-validates for fields that are not validated" do
+    input = @builder.text_field(:city, :validate => true)
+    input.should_not match(/data-validates/)
   end
 end

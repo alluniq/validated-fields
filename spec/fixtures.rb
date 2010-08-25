@@ -7,7 +7,7 @@ class User
   include ActiveModel::Validations
   extend  ActiveModel::Naming
       
-  attr_accessor :name, :last_name, :maiden_name, :email, :age
+  attr_accessor :name, :last_name, :maiden_name, :email, :age, :city
   
   validates :name,  :presence => {:message => 'Name is required'},
                     :length   => {:minimum => 3, :maximum => 10, :message => 'Invalid length'}
