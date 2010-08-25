@@ -18,13 +18,13 @@ Here's a basic example, just to give you an idea what the plugin does:
     
 The text field would look like this:
 
-    <input class="validated" data-required-error-msg="Name is required" id="user_name" name="user[name]" required="required" type="text" />
+    <input class="validated" data-error-presence="Name is required" id="user_name" name="user[name]" required="required" type="text" />
     
 Once we have those custom attributes, we can easily validate the field using JavaScript (jQuery example):
 
     $('.validated').blur(function() {
         if ($(this).attr('required') && $(this).attr('value') == '') {
-            alert($(this).attr('data-error-required')); // alerts are evil, don't use them in your code ;)
+            alert($(this).attr('data-error-presence')); // alerts are evil, don't use them in your code ;)
         }
     });
 

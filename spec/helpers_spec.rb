@@ -54,4 +54,9 @@ describe ValidatedFields::Helpers do
     input.should_not match(/required="required"/)
     input.should_not match(/class="validated"/)
   end
+  
+  it "should add data-validates with validator names" do
+    input = @builder.text_field(:name, :validate => true)
+    input.should match(/dupa/)
+  end
 end

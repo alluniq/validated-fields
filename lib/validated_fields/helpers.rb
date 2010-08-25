@@ -38,7 +38,8 @@ module ValidatedFields
           return options
         end
         
-        validations = 0
+        validations     = 0
+        validator_names = []
         
         validators = validators_for(object_name, attribute)
         validators.each do |validator|
@@ -53,11 +54,14 @@ module ValidatedFields
           
           if ValidatedFields::Validators.const_defined?(validator_name)
             options = eval("ValidatedFields::Validators::#{validator_name}").prepare_options(validator, options)
+            validator_names.push(validator_name.gsub(/Validator/, '').downcase)
           end
           validations += 1
         end
         
         options[:class] = options[:class].present? ? options[:class] + " validated" : "validated" if validations > 0
+        options['data-validates'] = validator_names.uniq.join(' ') if validator_names.length > 0
+        
         options.delete(:validate) unless options[:validate].nil?
         
         options
