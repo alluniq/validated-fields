@@ -26,20 +26,20 @@ Once we have those custom attributes, we can easily validate the field using Jav
 
     rails generate validated_fields:javascript
     
-The command above will install `validated-fields.js` file in your `public/javascripts/` directory. All you need to do in order to use the built-in validators is to include the .js file and implement validation callbacks:
+The command above will install `validated-fields.js` file in your `public/javascripts/` directory. All you need to do in order to use the built-in validators is to include that file in your views and implement validation callbacks:
 
     $(document).ready(function() {
-		ValidatedFields.initialize(
+		new ValidatedFields(
 		    // function called when validation fails
 		    function(element, errorMsg) {
 		        element.css('border', '1px red solid');
-			    element.next('span.error').html(errorMsg);
+			    element.next('span.error').html(errorMsg); // show error message
 		    },
 		    
 		    // function called when validation succeeds
 		    function(element) {
 		        element.css('border', '1px green solid');
-		        element.next('span.error').html('');
+		        element.next('span.error').html(''); // clear error message
 		    }
 		);
 	});
@@ -87,6 +87,22 @@ If you'd like use your own validators, you'll need to create a module with `prep
         end
       end
     end
+    
+You can customize the JavaScript validator as well. Once you have the required validator helper, extend the `ValidatedFields` class with your new validation methods:
+
+    ValidatedFields.prototype = {
+	    
+	    validateEmail: function(element, errors) {
+    	    var value   = jQuery.trim(element.attr('value'));
+            
+            if (notValid) {
+                this.errorCallback(element, errors["format"]);
+                return false;
+            }
+            
+            return true;
+	    }
+	};
 
 ## Note on Patches/Pull Requests
  
