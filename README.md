@@ -96,7 +96,7 @@ You can customize the JavaScript validator as well. Once you have the required v
     	    var value   = jQuery.trim(element.attr('value'));
             
             if (notValid) {
-                this.errorCallback(element, errors["format"]);
+                this.errorCallback(element, errors["email"]); // data-error-email
                 return false;
             }
             
