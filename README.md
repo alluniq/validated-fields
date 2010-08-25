@@ -4,6 +4,8 @@ ValidatedFields is a set of helpers for unobtrusive frontend validations using H
 
 It overrides the default rails form helpers and uses Validator reflection to gather validation rules declared in model classes.
 
+**This plugin is in early stages of development.**
+
 ## Usage
 
 Here's a basic example, just to give you an idea what the plugin does:
@@ -18,15 +20,30 @@ Here's a basic example, just to give you an idea what the plugin does:
     
 The text field would look like this:
 
-    <input class="validated" data-error-presence="Name is required" id="user_name" name="user[name]" required="required" type="text" />
+    <input class="validated" data-validates="presence" data-error-presence="Name is required" id="user_name" name="user[name]" required="required" type="text" />
     
-Once we have those custom attributes, we can easily validate the field using JavaScript (jQuery example):
+Once we have those custom attributes, we can easily validate the field using JavaScript. The gem comes with a simple and extendable JS validator:
 
-    $('.validated').blur(function() {
-        if ($(this).attr('required') && $(this).attr('value') == '') {
-            alert($(this).attr('data-error-presence')); // alerts are evil, don't use them in your code ;)
-        }
-    });
+    rails generate validated_fields:javascript
+    
+The command above will install `validated-fields.js` file in your `public/javascripts/` directory. All you need to do in order to use the built-in validators is to include the .js file and implement validation callbacks:
+
+    $(document).ready(function() {
+		ValidatedFields.initialize(
+		    // function called when validation fails
+		    function(element, errorMsg) {
+		        element.css('border', '1px red solid');
+			    element.next('span.error').html(errorMsg);
+		    },
+		    
+		    // function called when validation succeeds
+		    function(element) {
+		        element.css('border', '1px green solid');
+		        element.next('span.error').html('');
+		    }
+		);
+	});
+
 
 ### Installation
 
