@@ -15,7 +15,7 @@ module ValidatedFields
         options[:min] = voptions[:greater_than_or_equal_to].to_i + 1 if voptions[:greater_than_or_equal_to].present?
         options[:max] = voptions[:less_than_or_equal_to].to_i    - 1 if voptions[:less_than_or_equal_to].present?
         
-        options['data-numericality-error-msg'] = voptions[:message] if voptions[:message].present?
+        options['data-numericality-error-msg'] = voptions[:message] || "Invalid number"
         options
       end
     end
