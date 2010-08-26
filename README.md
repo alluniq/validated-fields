@@ -2,9 +2,7 @@
 
 ValidatedFields is a set of helpers for unobtrusive frontend validations using HTML5 attributes, Rails 3 validators and JavaScript.
 
-It overrides the default rails form helpers and uses Validator reflection to gather validation rules declared in model classes.
-
-**This plugin is in early stages of development.**
+It overrides the default Rails form helpers and uses Validator reflection to gather validation rules declared in model classes.
 
 ## Usage
 
@@ -22,7 +20,7 @@ The text field would look like this:
 
     <input class="validated" data-validates="presence" data-error-presence="Name is required" id="user_name" name="user[name]" required="required" type="text" />
     
-Once we have those custom attributes, we can easily validate the field using JavaScript. The gem comes with a simple and extendable JS validator:
+Once we have those custom attributes, we can easily validate the field using JavaScript. The gem comes with a simple and customizable JS (jQuery) validator.
 
     rails generate validated_fields:javascript
     
@@ -53,7 +51,7 @@ Add the following line to your Gemfile and run `bundle install`:
 
 ### Standard validation
 
-By default validated_field supports the following built-in validators:
+By default validated-fields supports the following built-in validators:
 
 * presence
 * format
