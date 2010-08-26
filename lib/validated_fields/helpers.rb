@@ -31,7 +31,7 @@ module ValidatedFields
     end
     
     protected
-      # Override this method if you want to use some non-standard validators. See README for examples
+      
       def setup_validation_options(object_name, attribute, options)
         if options[:validate].nil? || options[:validate] != true
           options.delete(:validate) unless options[:validate].nil?
@@ -65,15 +65,6 @@ module ValidatedFields
         options.delete(:validate) unless options[:validate].nil?
         
         options
-      end
-      
-      def has_validator?(object_name, attribute, validator)
-        validators_for(object_name, attribute).map(&:class).include?(validator)
-      end
-      
-      # Retrieves given validator object
-      def find_validator(object_name, attribute, validator_class)
-        validators_for(object_name, attribute).find {|v| v.class == validator_class}
       end
       
       # Returns the list of all validators assigned to attribute
