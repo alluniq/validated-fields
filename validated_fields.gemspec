@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Piotr Chmolowski"]
   s.email       = ["piotr@chmolowski.pl"]
   s.homepage    = "http://github.com/pch/validated-field"
-  s.summary     = "View helpers for generating unobtrusive frontend validations based on Rails 3 validators"
-  s.description = "Soon to come"
+  s.summary     = "View helpers for unobtrusive frontend validation"
+  s.description = "View helpers for generating unobtrusive frontend validators based on Rails 3 validators"
 
   s.required_rubygems_version = ">= 1.3.6"
   
