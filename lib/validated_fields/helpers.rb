@@ -38,38 +38,51 @@ module ValidatedFields
           return options
         end
         
-        validations     = 0
+        validations     = 0  # counter
         validator_names = []
         
         validators = validators_for(object_name, attribute)
         validators.each do |validator|
-          if validator.options[:if].present?
-            object = options[:object]
-            
-            next if validator.options[:if].is_a?(Proc)   && validator.options[:if].call(object) == false
-            next if validator.options[:if].is_a?(Symbol) && object.send(validator.options[:if]) == false
-          end
+          next if skip_validation?(options[:object], validator.options)
           
+          # if validator class is namespaced, extract class name only:
           validator_name = validator.class.to_s.split("::").last
           
+          # check if validator has a helper implemented in ValidatedFields::Validators namespace:
           if ValidatedFields::Validators.const_defined?(validator_name)
             options = eval("ValidatedFields::Validators::#{validator_name}").prepare_options(validator, options)
-            validator_names.push(validator_name.gsub(/Validator/, '').downcase)
+            validator_names.push(validator_name.gsub(/Validator/, '').downcase) # e.g. PresenceValidator => presence
+            
+            validations += 1
           end
-          validations += 1
         end
         
-        options[:class] = options[:class].present? ? options[:class] + " validated" : "validated" if validations > 0
-        options['data-validates'] = validator_names.uniq.join(' ') if validator_names.length > 0
+        if validations > 0
+          options[:class]           = options[:class].present? ? options[:class] + " validated" : "validated"
+          options['data-validates'] = validator_names.uniq.join(' ') # list of all validators
+        end
         
-        options.delete(:validate) unless options[:validate].nil?
-        
+        options.delete(:validate)
         options
       end
       
       # Returns the list of all validators assigned to attribute
       def validators_for(object_name, attribute)
         object_name.to_s.classify.constantize.validators_on(attribute)
+      end
+      
+      def skip_validation?(object, voptions)
+        if voptions[:if].present?
+          return true if voptions[:if].is_a?(Proc)   && voptions[:if].call(object) == false
+          return true if voptions[:if].is_a?(Symbol) && object.send(voptions[:if]) == false
+        end
+        
+        if voptions[:unless].present?
+          return true if voptions[:unless].is_a?(Proc)   && voptions[:unless].call(object) == true
+          return true if voptions[:unless].is_a?(Symbol) && object.send(voptions[:unless]) == true
+        end
+        
+        false
       end
   end
 end
