@@ -13,6 +13,6 @@ describe ValidatedFields::Validators::LengthValidator do
     
     input.should match(/min="3"/)
     input.should match(/maxlength="10"/)
-    input.should match(/data-error-length="Invalid length"/)
+    input.should match(/data-error-invalid-length="Invalid length"/)
   end
 end

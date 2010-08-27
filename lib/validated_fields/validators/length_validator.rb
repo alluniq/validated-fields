@@ -21,9 +21,9 @@ module ValidatedFields
         options['data-length'] = validator.options[:is] if validator.options[:is].present?
         
         # messages
-        options["data-error-length"]    = voptions[:message]   || "Invalid length"
-        options["data-error-too-long"]  = voptions[:too_long]  || "Too long"
-        options["data-error-too-short"] = voptions[:too_short] || "Too short"
+        options["data-error-invalid-length"] = voptions[:message]   || "Invalid length"
+        options["data-error-too-long"]       = voptions[:too_long]  || "Too long"
+        options["data-error-too-short"]      = voptions[:too_short] || "Too short"
         
         options["data-allow-blank"] = true if voptions[:allow_nil].present?   && voptions[:allow_nil]   == true
         options["data-allow-blank"] = true if voptions[:allow_blank].present? && voptions[:allow_blank] == true
