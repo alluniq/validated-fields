@@ -2,7 +2,7 @@
 
 ValidatedFields is a set of helpers for unobtrusive frontend validations using HTML5 attributes, Rails 3 validators and JavaScript.
 
-It overrides the default Rails form helpers and uses Validator reflection to gather validation rules declared in model classes.
+It overrides the default Rails form helpers and uses validator reflection to gather validation rules declared in model classes.
 
 ## Usage
 
@@ -16,15 +16,15 @@ Here's a basic example, just to give you an idea what the plugin does:
       <%= f.text_field :name, :validate => true %>
     <% end %>
     
-The text field would look like this:
+The rendered text field would look like this:
 
     <input class="validated" data-validates="presence" data-error-presence="Name is required" id="user_name" name="user[name]" required="required" type="text" />
     
-Once we have those custom attributes, we can easily validate the field using JavaScript. The gem comes with a simple and customizable JS (jQuery) validator.
+With these custom attributes in place, we can easily validate the field using JavaScript. The gem comes with a prepackaged jQuery validator you can easily adjust to your needs.
 
     rails generate validated_fields:javascript
     
-The command above will install `validated-fields.js` file in your `public/javascripts/` directory. All you need to do in order to use the built-in validators is to include that file in your views and implement validation callbacks:
+The command above will install `validated-fields.js` file in your `public/javascripts/` directory. Include that file in your views and implement validation callbacks:
 
     $(document).ready(function() {
 		new ValidatedFields(
@@ -111,9 +111,3 @@ You can customize the JavaScript validator as well. Once you have the required v
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
-
-### Copyright
-
-* Piotr Chmolowski
-* Peder Linder
-* Kim Moumen
