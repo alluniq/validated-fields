@@ -1,33 +1,39 @@
 
 module ValidatedFields
-  module Helpers
-    def self.included(base)
-      base.class_eval do
-        include ValidatedFields::Validators::PresenceValidator
-        include ValidatedFields::Validators::FormatValidator
-        include ValidatedFields::Validators::LengthValidator
-        include ValidatedFields::Validators::NumericalityValidator
-      end
+  class FormBuilder < ActionView::Helpers::FormBuilder
+
+    def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+      options = setup_validation_options(method, options)
+      super(method, options, checked_value, unchecked_value)
     end
 
-    def check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
+    def password_field(method, options = {})
       options = setup_validation_options(method, options)
-      super(object_name, method, options, checked_value, unchecked_value)
+      super(method, options)
     end
 
-    def password_field(object_name, method, options = {})
+    def text_area(method, options = {})
       options = setup_validation_options(method, options)
-      super(object_name, method, options)
+      super(method, options)
     end
 
-    def text_area(object_name, method, options = {})
+    def text_field(method, options = {})
       options = setup_validation_options(method, options)
-      super(object_name, method, options)
+      super(method, options)
     end
 
-    def text_field(object_name, method, options = {})
+    def radio_buttons(method, options, &block)
       options = setup_validation_options(method, options)
-      super(object_name, method, options)
+      options[:class].push("radio")
+
+      @template.content_tag(:div, options, &block)
+    end
+
+    def check_boxes(method, options, &block)
+      options = setup_validation_options(method, options)
+      options[:class].push("checkboxes")
+
+      @template.content_tag(:div, options, &block)
     end
 
     protected
@@ -41,9 +47,9 @@ module ValidatedFields
         validations     = 0  # counter
         validator_names = []
 
-        validators = validators_for(options[:object], attribute)
+        validators = validators_for(@object, attribute)
         validators.each do |validator|
-          next if skip_validation?(options[:object], validator.options)
+          next if skip_validation?(@object, validator.options)
 
           # if validator class is namespaced, extract class name only:
           validator_name = validator.class.to_s.split("::").last

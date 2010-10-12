@@ -11,4 +11,18 @@ require "action_view"
 
 #require "rspec"
 require "validated_fields"
-require 'fixtures'
+require "fixtures"
+
+module ActionView
+  module Helpers
+    module CaptureHelper
+      def with_output_buffer(buf = nil) #:nodoc:
+        self.output_buffer, old_buffer = buf, output_buffer
+        yield
+        output_buffer
+      ensure
+        self.output_buffer = old_buffer
+      end
+    end
+  end
+end
