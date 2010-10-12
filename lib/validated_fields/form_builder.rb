@@ -24,14 +24,14 @@ module ValidatedFields
 
     def radio_buttons(method, options, &block)
       options = setup_validation_options(method, options)
-      options[:class].push("radio")
+      options[:class].push("radio") if options[:class].is_a?(Array)
 
       @template.content_tag(:div, options, &block)
     end
 
     def check_boxes(method, options, &block)
       options = setup_validation_options(method, options)
-      options[:class].push("checkboxes")
+      options[:class].push("checkboxes") if options[:class].is_a?(Array)
 
       @template.content_tag(:div, options, &block)
     end
