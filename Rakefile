@@ -1,11 +1,9 @@
 require "bundler"
 Bundler.setup
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new('spec') do |t|
-  t.spec_opts  = %w(-fs --color)
-  t.warning    = true
-end
+require "rspec"
+require "rspec/core/rake_task"
+Rspec::Core::RakeTask.new(:spec)
 
 gemspec = eval(File.read("validated_fields.gemspec"))
 
