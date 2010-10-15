@@ -1,13 +1,10 @@
 require "validated_fields/form_builder"
+require "validated_fields/validators/presence_validator"
+require "validated_fields/validators/format_validator"
+require "validated_fields/validators/length_validator"
+require "validated_fields/validators/numericality_validator"
 
 module ValidatedFields
-  module Validators
-    autoload :PresenceValidator,     "validated_fields/validators/presence_validator"
-    autoload :FormatValidator,       "validated_fields/validators/format_validator"
-    autoload :LengthValidator,       "validated_fields/validators/length_validator"
-    autoload :NumericalityValidator, "validated_fields/validators/numericality_validator"
-  end
-
   def self.included(base)
     base.class_eval do
       include ValidatedFields::Validators::PresenceValidator
