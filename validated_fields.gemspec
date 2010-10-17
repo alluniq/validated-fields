@@ -11,13 +11,16 @@ Gem::Specification.new do |s|
   s.description = "View helpers for generating unobtrusive frontend validators based on Rails 3 validators"
 
   s.required_rubygems_version = ">= 1.3.6"
-  
+
   #s.rubyforge_project         = "validated_fields"
 
-  # If you have other dependencies, add them here
-  # s.add_dependency "another", "~> 1.2"
 
-  # If you need to check in files that aren't .rb files, add them here
+  s.add_dependency "actionpack",  "~> 3.0.0"
+  s.add_dependency "activemodel", "~> 3.0.0"
+
+  s.add_development_dependency "bundler", ">= 1.0.0"
+  s.add_development_dependency "rspec-core", "~> 2.0.0"
+
   s.files        = Dir["{lib}/**/*.rb", "bin/*", "LICENSE", "*.md"]
   s.require_path = 'lib'
 end
