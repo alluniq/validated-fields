@@ -1,17 +1,17 @@
-require "rubygems"
-require "bundler"
-Bundler.setup
-
-require "active_support"
-require "action_pack"
-require "active_model"
-
-require "action_controller"
 require "action_view"
+require "action_controller"
 
-#require "rspec"
+require "rspec"
 require "validated_fields"
 require "fixtures"
+
+RSpec.configure do |config|
+  config.before :each do
+    @user       = User.new
+    @controller = UsersController.new
+    @builder    = ValidatedFields::FormBuilder.new(:user, @user, @controller, {}, nil)
+  end
+end
 
 module ActionView
   module Helpers

@@ -2,12 +2,6 @@ require "spec_helper"
 
 describe ValidatedFields::FormBuilder do
 
-  before(:each) do
-    @user       = User.new
-    @controller = UsersController.new
-    @builder    = ValidatedFields::FormBuilder.new(:user, @user, @controller, {}, nil)
-  end
-
   it "should be the default form builder" do
     ActionView::Base.default_form_builder.should == ValidatedFields::FormBuilder
   end

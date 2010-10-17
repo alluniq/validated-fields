@@ -2,14 +2,6 @@ class UsersController < ActionController::Base
   include ActionView::Helpers::FormHelper
   include ActionView::Helpers::FormTagHelper
   include ActionView::Helpers::FormOptionsHelper
-  include ActionView::Helpers::UrlHelper
-  include ActionView::Helpers::TagHelper
-  include ActionView::Helpers::TextHelper
-  include ActionView::Helpers::ActiveRecordHelper if defined?(ActionView::Helpers::ActiveRecordHelper)
-  include ActionView::Helpers::ActiveModelHelper  if defined?(ActionView::Helpers::ActiveModelHelper)
-  include ActionView::Helpers::DateHelper
-  include ActionView::Helpers::CaptureHelper
-  include ActionView::Helpers::AssetTagHelper
 
   attr_accessor :output_buffer
 end
