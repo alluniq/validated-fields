@@ -51,7 +51,6 @@ PLATFORMS
 DEPENDENCIES
   actionpack (= 3.0.0)
   activemodel (= 3.0.0)
-  activesupport (= 3.0.0)
   rake
   rspec (= 2.0.0)
   validated_fields!
