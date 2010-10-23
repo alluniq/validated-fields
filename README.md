@@ -47,7 +47,7 @@ The command above will install `validated-fields.js` file in your `public/javasc
 
 Add the following line to your Gemfile and run `bundle install`:
 
-    gem 'validated_fields', :git => 'http://github.com/pch/validated-fields.git'
+    gem 'validated_fields', :git => 'http://github.com/alluniq/validated-fields.git'
 
 ### Standard validation
 
