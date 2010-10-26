@@ -11,12 +11,13 @@ class User
   extend  ActiveModel::Naming
   include ActiveModel::Conversion
 
-  attr_accessor :name, :last_name, :maiden_name, :email, :age, :city
+  attr_accessor :name, :last_name, :maiden_name, :email, :age, :city, :zipcode
 
   validates :name,  :presence => {:message => 'Name is required'},
                     :length   => {:minimum => 3, :maximum => 10, :message => 'Invalid length'}
 
-  validates :email, :format   => {:message => "Email is required", :with   => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
+  validates :email,   :format => {:message => "Email is required", :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
+  validates :zipcode, :format => {:with => /\d+/}
 
   validates :age, :numericality => {
     :message      => "Wrong number format",

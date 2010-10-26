@@ -8,4 +8,9 @@ describe ValidatedFields::Validators::FormatValidator do
     input.should match(/pattern="\/.+"/) # TODO: lame
     input.should match(/data-error-format="Email is required"/)
   end
+
+  it "should add default error message if :message is not set" do
+    input = @builder.text_field(:zipcode, :validate => true)
+    input.should match(/data-error-format="Invalid format"/)
+  end
 end
