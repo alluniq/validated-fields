@@ -46,7 +46,7 @@ module ValidatedFields
 
         validator_names = []
 
-        validators = validators_for(@object, attribute)
+        validators = @object.class.validators_on(attribute) # the list of all validators assigned to attribute
         validators.each do |validator|
           next if skip_validation?(@object, validator.options)
 
@@ -71,11 +71,6 @@ module ValidatedFields
 
         options.delete(:validate)
         options
-      end
-
-      # Returns the list of all validators assigned to attribute
-      def validators_for(object, attribute)
-        object.class.validators_on(attribute)
       end
 
       def skip_validation?(object, voptions)
