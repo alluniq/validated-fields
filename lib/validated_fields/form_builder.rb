@@ -44,26 +44,24 @@ module ValidatedFields
           return options
         end
 
-        validations     = 0  # counter
         validator_names = []
 
         validators = validators_for(@object, attribute)
         validators.each do |validator|
           next if skip_validation?(@object, validator.options)
 
-          # if validator class is namespaced, extract class name only:
+          # if validator class is namespaced (e.g. ActiveModel::Validations::PresenceValidator),
+          # extract class name only (i.e. PresenceValidator):
           validator_name = validator.class.to_s.split("::").last
 
           # check if validator has a helper implemented in ValidatedFields::Validators namespace:
           if ValidatedFields::Validators.const_defined?(validator_name)
             options = eval("ValidatedFields::Validators::#{validator_name}").prepare_options(validator, options)
-            validator_names.push(validator_name.gsub(/Validator/, '').downcase) # e.g. PresenceValidator => presence
-
-            validations += 1
+            validator_names.push(validator_name.gsub("Validator", "").downcase) # e.g. PresenceValidator => presence
           end
         end
 
-        if validations > 0
+        if validator_names.length > 0
           options[:class] ||= []
           options[:class]   = options[:class].split(" ") if !options[:class].is_a?(Array)
           options[:class].push("validated")
