@@ -2,25 +2,52 @@ require "spec_helper"
 
 describe ValidatedFields::FormBuilder do
 
+  include SpecHelper
+
+  def users_path
+    '/users'
+  end
+
   it "should be the default form builder" do
     ActionView::Base.default_form_builder.should == ValidatedFields::FormBuilder
+
+    form_for(@user) do |f|
+      f.class.should == ValidatedFields::FormBuilder
+    end
   end
 
   it "should add 'validated' class if there's no class in options" do
-    @builder.text_field(:name, :validate => true).should match(/class="validated"/)
+    form_for(@user, :validate => true) do |f|
+      f.text_field(:name).should match(/class="validated"/)
+    end
   end
 
   it "should add 'validated' class if the 'class' option already has a value assigned" do
-    @builder.text_field(:name, :validate => true, :class => 'foobar').should match(/class="foobar validated"/)
+    form_for(@user, :validate => true) do |f|
+      f.text_field(:name, :validate => true, :class => 'foobar').should match(/class="foobar validated"/)
+    end
   end
 
   it "should not add any options if the :validate option isn't provided" do
-    input = @builder.text_field(:name)
+    form_for(@user) do |f|
+      input = f.text_field(:name)
 
-    input.should_not match(/required="required"/)
-    input.should_not match(/data-required-error-msg="Name is required"/)
-    input.should_not match(/validate="false"/)
-    input.should_not match(/class="validated"/)
+      input.should_not match(/required="required"/)
+      input.should_not match(/data-required-error-msg="Name is required"/)
+      input.should_not match(/validate="false"/)
+      input.should_not match(/class="validated"/)
+    end
+  end
+
+  it "should not add any options if the :validate option is false" do
+    form_for(@user, :validate => false) do |f|
+      input = f.text_field(:name)
+
+      input.should_not match(/required="required"/)
+      input.should_not match(/data-required-error-msg="Name is required"/)
+      input.should_not match(/validate="false"/)
+      input.should_not match(/class="validated"/)
+    end
   end
 
   it "should add options if the :if Proc returns true" do
