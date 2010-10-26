@@ -1,0 +1,7 @@
+Stuff to do:
+
+* Add support for remote validations (e.g. uniqueness)
+* Implement all validators from http://ar.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html
+* Simplify JS validations:
+  * validator methods should return error message instead of calling errorCallback
+* Improve support for radio buttons and checkboxes
